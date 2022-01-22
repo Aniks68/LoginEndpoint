@@ -24,6 +24,7 @@ public class Person implements UserDetails {
     private String email;
     private String password;
     private String username;
+    private PersonRole role;
 
     public Long getId() {
         return id;
@@ -35,7 +36,7 @@ public class Person implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return getRole().getGrantedAuthorities();
     }
 
     @Override

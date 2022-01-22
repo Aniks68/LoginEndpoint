@@ -2,6 +2,7 @@ package com.aniks.jwtlogin;
 
 import com.aniks.jwtlogin.model.AuthRequest;
 import com.aniks.jwtlogin.model.AuthResponse;
+import com.aniks.jwtlogin.model.Person;
 import com.aniks.jwtlogin.services.MyUserDetailsService;
 import com.aniks.jwtlogin.util.JwtUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +40,7 @@ public class HelloResource {
             throw new Exception("Incorrect username or password", e);
         }
 
-        final UserDetails userDetails = userService
+        final Person userDetails = userService
                 .loadUserByUsername(authRequest.getUsername());
 
         final String jwt = jwtTokenUtils.generateToken(userDetails);

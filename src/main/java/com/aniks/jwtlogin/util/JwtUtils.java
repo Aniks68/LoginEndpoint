@@ -1,5 +1,6 @@
 package com.aniks.jwtlogin.util;
 
+import com.aniks.jwtlogin.model.Person;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -36,8 +37,9 @@ public class JwtUtils {
         return extractExpiration(token).before(new Date());
     }
 
-    public String generateToken(UserDetails userDetails) {
+    public String generateToken(Person userDetails) {
         Map<String, Object> claims = new HashMap<>();
+        claims.put("Authorities", userDetails.getRole().getGrantedAuthorities());
         return createToken(claims, userDetails.getUsername());
     }
 

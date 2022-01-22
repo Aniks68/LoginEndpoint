@@ -1,5 +1,6 @@
 package com.aniks.jwtlogin.filters;
 
+import com.aniks.jwtlogin.model.Person;
 import com.aniks.jwtlogin.services.MyUserDetailsService;
 import com.aniks.jwtlogin.util.JwtUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,11 +38,11 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         }
 
         if(username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-            UserDetails userDetails = this.userService.loadUserByUsername(username);
+            Person user = this.userService.loadUserByUsername(username);
 
-            if (jwtTokenUtils.validateToken(jwt, userDetails)) {
+            if (jwtTokenUtils.validateToken(jwt, user)) {
                 UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
-                        userDetails, null, userDetails.getAuthorities());
+                        user, null, user.getAuthorities());
                 usernamePasswordAuthenticationToken
                         .setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                 SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
