@@ -23,8 +23,6 @@ public class MyUserDetailsService implements UserDetailsService {
 
     @Override
     public Person loadUserByUsername(String username) throws UsernameNotFoundException {
-        /* Should load user by username from database or source of choice*/
-//        return new Person(27L, "Samuel", "Jachike", "sam@el.com", "12345", "chike", ADMIN);
 
         return personRepository.findByUsername(username).orElse(null);
     }
@@ -32,6 +30,7 @@ public class MyUserDetailsService implements UserDetailsService {
     public Person saveUser(Person person) {
         Person newPerson = personRepository.findByUsernameOrEmail(person.getUsername(), person.getEmail()).orElse(null);
         if(newPerson == null) {
+            person.setPosition(person.getRole().name());
             personRepository.save(person);
             return person;
         }

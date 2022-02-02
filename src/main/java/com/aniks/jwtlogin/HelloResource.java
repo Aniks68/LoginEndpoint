@@ -7,6 +7,7 @@ import com.aniks.jwtlogin.services.MyUserDetailsService;
 import com.aniks.jwtlogin.util.JwtUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -27,19 +28,26 @@ public class HelloResource {
     @Autowired
     JwtUtils jwtTokenUtils;
 
-    @RequestMapping("/hello")
-    public String hello() {
-        return "Hello World!";
+    @GetMapping("/admin")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public String getAdmin() {
+        return "This is an admin";
+    }
+
+    @GetMapping("/premium")
+    @PreAuthorize("hasRole('ROLE_PREMIUM')")
+    public String getUser() {
+        return "This is a premium user";
     }
 
     @PostMapping("/save")
     public String saveUser(@RequestBody Person person) {
         System.out.println("Register request: " + person);
         Person authenticated = userService.saveUser(person);
-        return authenticated == null ? "Username or email already registered!" : "Succesfully registered: " + authenticated.getId() + " . Authorities: " + authenticated.getRole().getGrantedAuthorities();
+        return authenticated == null ? "Username or email already registered!" : "Successfully registered: " + authenticated.getId() + " . Authorities: " + authenticated.getRole().getGrantedAuthorities();
     }
 
-    @PostMapping("/authenticate")
+    @PostMapping("/login")
     public ResponseEntity<?> createAuthenticationToken(@RequestBody AuthRequest authRequest,
                                                        HttpServletResponse response) throws Exception {
         try {
@@ -61,9 +69,6 @@ public class HelloResource {
 
     @GetMapping("/users")
     public String getAll() {
-        Person person = userService.findById(1L);
-        person.setUsername("nenye");
-        userService.saveUser(person);
         return "Registered users: " + userService.findAll();
     }
 }
