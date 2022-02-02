@@ -1,22 +1,49 @@
 package com.aniks.jwtlogin.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 @Data
+@Entity
+@NoArgsConstructor
+@AllArgsConstructor
 public class Person implements UserDetails {
-    private final String firstname;
-    private final String lastname;
-    private final String email;
-    private final String password;
-    private final String username;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
+    private Long id;
+
+    @Column(nullable = false)
+    private String firstname;
+
+    @Column(nullable = false)
+    private String lastname;
+
+    @Column(nullable = false)
+    private String email;
+
+    @Column(nullable = false)
+    private String password;
+
+    @Column(nullable = false)
+    private String username;
+
+    @Column(nullable = false)
+    private PersonRole role;
+
+    private String position;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return getRole().getGrantedAuthorities();
     }
 
     @Override
