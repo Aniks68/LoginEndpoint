@@ -50,3 +50,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return NoOpPasswordEncoder.getInstance();
     };
 }
+
+/*
+* {
+  "category": "For chest",
+  "description": "Push ups",
+  "durationInDays": 60,
+  "durationInHoursPerDay": 4,
+  "image": "calf",
+  "price": 30000,
+  "productName": "Russian Press-up",
+  "productType": "SERVICE",
+  "stock": 10
+
+}
+* */
