@@ -64,4 +64,40 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
   "stock": 10
 
 }
+*
+*
+* public Page<UserProductDto> getAllProducts(int pageNumber) {
+         List<UserProductDto> dtoList = getDtoList();
+
+        int pageSize = 10;
+        int skipCount = (pageNumber - 1) * pageSize;
+
+        List<UserProductDto> activityPage = dtoList
+                .stream()
+                .skip(skipCount)
+                .limit(pageSize)
+                .collect(Collectors.toList());
+
+        Pageable productPage = PageRequest.of(pageNumber, pageSize, Sort.by("productName").ascending());
+
+        return new PageImpl<>(activityPage, productPage, dtoList.size());
+    }
+    *
+ public Page<OrderResponse> getOrdersByStatus(ORDER_STATUS status, int pageNo) {
+        int pageSize = 10;
+        int skipCount = (pageNo - 1) * pageSize;
+
+        List<OrderResponse> orderList = orderRepository.findAllByOrderStatus(status)
+                .stream()
+                .map(x -> modelMapper.map(x, OrderResponse.class))
+                .collect(Collectors.toList())
+                .stream()
+                .skip(skipCount)
+                .limit(pageSize)
+                .collect(Collectors.toList());
+
+        Pageable orderPage = PageRequest.of(pageNo, pageSize, Sort.by("productName").ascending());
+
+        return new PageImpl<>(orderList, orderPage, orderList.size());
+   }
 * */
