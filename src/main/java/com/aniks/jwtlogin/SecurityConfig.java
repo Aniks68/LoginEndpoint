@@ -65,7 +65,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 }
 *
-*
+
 * public Page<UserProductDto> getAllProducts(int pageNumber) {
          List<UserProductDto> dtoList = getDtoList();
 
