@@ -14,7 +14,7 @@ import java.util.function.Function;
 
 @Service
 public class JwtUtils {
-    public String SECRET_KEY = " senjunohatetodokazarunomiteutsurazarutennoitehikariwootozumichihidanewoaorukazetsudoitemadonawagayubiwomiyokodanhasshinkujotenkeishippodairinhaironohotoyimuhukukanatakokotoshitekiyuhadonokyuujuuichisenjukotentaihou";
+    public String SECRET_KEY = "senjunohatetodokazarunomiteutsurazarutennoitehikariwootozumichihidanewoaorukazetsudoitemadonawagayubiwomiyokodanhasshinkujotenkeishippodairinhaironohotoyimuhukukanatakokotoshitekiyuhadonokyuujuuichisenjukotentaihou";
 
     private String createToken(Map<String, Object> claims, String subject) {
         return Jwts.builder().setClaims(claims)
