@@ -25,7 +25,7 @@ public class SwaggerConfig implements WebMvcConfigurer {
                 .protocols(new HashSet<>(Arrays.asList("HTTP","HTTPs")))
                 .apiInfo(metaData())
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.aniks.serviceprovidersproject"))
+                .apis(RequestHandlerSelectors.basePackage("com.aniks.jwtlogin"))
                 .paths(PathSelectors.any())
                 .build();
     }
@@ -42,13 +42,13 @@ public class SwaggerConfig implements WebMvcConfigurer {
 
     private ApiInfo metaData() {
         return new ApiInfo(
-                "Service Providers Project",
-                "Configuration for Restaurant Section",
+                "Login Endpoint",
+                "Configuration for POD C Spring Security Tests",
                 "1.1.0",
                 "Free to use",
                 new springfox.documentation.service.Contact("Ikechukwu", " ", "https://ikechukwuanene.netlify.app/"),
                 "Apache 2.0",
-                "https://github.com/Aniks68/ServiceProvidersProject",
+                "https://github.com/Aniks68/LoginEndpoint.git",
                 Collections.emptyList()
         );
     }
