@@ -3,11 +3,13 @@ package com.aniks.jwtlogin.services;
 import com.aniks.jwtlogin.model.Person;
 import com.aniks.jwtlogin.model.PersonRole;
 import com.aniks.jwtlogin.repository.PersonRepository;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.aniks.jwtlogin.model.PersonRole.*;
@@ -24,7 +26,15 @@ public class MyUserDetailsService implements UserDetailsService {
     @Override
     public Person loadUserByUsername(String username) throws UsernameNotFoundException {
 
-        return personRepository.findByUsername(username).orElse(null);
+        Person person = personRepository.findByUsername(username).orElse(null);
+//        List<SimpleGrantedAuthority> authorities = new ArrayList<SimpleGrantedAuthority>();
+//        String[] authStrings = personRepository.getAuthorities().split(", ");
+//        for(String authString : authStrings) {
+//            authorities.add(new SimpleGrantedAuthority(authString));
+//        }
+//
+//        UserDetails ud = new User(account.getUsername(), account.getPassword(), authorities);
+        return person;
     }
 
     public Person saveUser(Person person) {
