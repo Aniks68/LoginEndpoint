@@ -1,4 +1,4 @@
-package com.aniks.jwtlogin;
+package com.aniks.jwtlogin.controllers;
 
 import com.aniks.jwtlogin.model.AuthRequest;
 import com.aniks.jwtlogin.model.AuthResponse;
@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletResponse;
 
 @RestController
+@Request
 public class HelloResource {
 
     @Autowired
