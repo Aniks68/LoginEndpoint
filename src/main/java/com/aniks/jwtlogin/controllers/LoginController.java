@@ -17,8 +17,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletResponse;
 
 @RestController
-@Request
-public class HelloResource {
+@RequestMapping("/pod")
+public class LoginController {
 
     @Autowired
     private AuthenticationManager authenticationManager;
