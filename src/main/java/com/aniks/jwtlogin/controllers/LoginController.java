@@ -5,13 +5,12 @@ import com.aniks.jwtlogin.model.AuthResponse;
 import com.aniks.jwtlogin.model.Person;
 import com.aniks.jwtlogin.services.MyUserDetailsService;
 import com.aniks.jwtlogin.util.JwtUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.userdetails.UserDetails;
+//import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
@@ -20,14 +19,19 @@ import javax.servlet.http.HttpServletResponse;
 @RequestMapping("/pod")
 public class LoginController {
 
-    @Autowired
-    private AuthenticationManager authenticationManager;
+    private final AuthenticationManager authenticationManager;
 
-    @Autowired
+    final
     MyUserDetailsService userService;
 
-    @Autowired
+    final
     JwtUtils jwtTokenUtils;
+
+    public LoginController(AuthenticationManager authenticationManager, MyUserDetailsService userService, JwtUtils jwtTokenUtils) {
+        this.authenticationManager = authenticationManager;
+        this.userService = userService;
+        this.jwtTokenUtils = jwtTokenUtils;
+    }
 
     @GetMapping("/admin")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
