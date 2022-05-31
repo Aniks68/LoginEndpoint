@@ -1,11 +1,12 @@
 package com.aniks.jwtlogin.model;
 
+import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
+//import javax.validation.constraints.NotNull;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -20,7 +21,7 @@ public class Role {
     @NotNull
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
-    private ROLE_DETAIL roleDetail;
+    private PersonRole roleDetail;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "person_id", referencedColumnName = "id", nullable = false)
